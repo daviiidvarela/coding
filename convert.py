@@ -20,10 +20,10 @@ def celsius_to_fahrenheit(t):
 options = ['c', 'f', 'q']
 
 for ask in options:
-    ask = input('What unit would you like to convert to? (Type c or f) ')
+    ask = input('What unit would you like to convert to? (Type c or f) ') #4. program asks what the user wants
     if ask == 'c':
         def fahrenheit_to_celsius(t):
-            t_celsius = (t_fahrenheit-32)*(5/9)
+            t_celsius = (t_fahrenheit-32)*(5/9) #2. fahrenheit_to_celsius fixed
             return t_celsius
         answer = input('Enter a temperature in Fahrenheit: ')
         t_fahrenheit = float(answer)
@@ -32,7 +32,7 @@ for ask in options:
         
     elif ask == 'f': 
         def celsius_to_fahrenheit(t):
-            t_fahrenheit = (t_celsius*(9/5))+32
+            t_fahrenheit = ((t_celsius*(9/5))+32) #3. program extended to do other conversion
             return t_fahrenheit
 
         answer = input('Enter a temperature in Celsius: ')
@@ -41,4 +41,5 @@ for ask in options:
         print("Fahrenheit: ", t)
     elif ask == 'q':
        quit
-#what even
+    elif ask != 'q' or ask!= 'c' or ask!= 'f':
+        print('Please input a valid option')
