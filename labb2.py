@@ -1,5 +1,8 @@
-p = [2, 0, 1]
+p = [2, 0, 1, 0]
 q = [-2, 1, 0, 0, 2]
+p0 = [2,0,1,0]
+q0 = [0,0,0]
+
 
 def poly_to_string(p_list):
     '''
@@ -25,21 +28,27 @@ def poly_to_string(p_list):
             terms.append(term)
         if coeff == 0:
             term = str()
-            
-
         degree += 1
-
-        
         if (len(p_list)==0): 
 		        return 0 
-
-    final_string = ' + '.join(terms) # The string ' + ' is used as "glue" between the elements in the string
+        
+    final_string=' + '.join(terms) # The string ' + ' is used as "glue" between the elements in the string
     return final_string
 
+def drop_zeroes(p_list):
+            while p_list[-1] == 0:
+                p_list.pop()
+            return p_list
+
+def eq_poly(p_list, q_list):
+    if p_list == q_list:
+        return True
+    else:
+        return False
 
 
 
-print(poly_to_string(p))
-
-print(poly_to_string(q))
-print(poly_to_string([]))
+#print(poly_to_string(p))
+#print(poly_to_string(q))
+print(eq_poly(q0,[]))
+#print(drop_zeroes(q0))
