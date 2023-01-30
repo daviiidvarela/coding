@@ -14,14 +14,20 @@ def poly_to_string(p_list):
     for coeff in p_list:
         if degree == 0:
             terms.append(str(coeff))
-        elif degree == 1:
-            terms.append(str(coeff) + 'x')
-        else:
+        if degree == 1 and coeff != 0:
+            if coeff == 1:
+                terms.append('x')    
+            else:
+                terms.append(str(coeff) + 'x')
+        if degree > 1 and coeff > 1:
             term = str(coeff) + 'x^' + str(degree)
+            terms.append(term)
+        if degree > 1 and coeff == 1:
+            term = 'x^' + str(degree)
             terms.append(term)
         degree += 1
 
     final_string = ' + '.join(terms) # The string ' + ' is used as "glue" between the elements in the string
     return final_string
 
-print(poly_to_string(q))
+#print(poly_to_string(q))

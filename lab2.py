@@ -14,7 +14,7 @@ def poly_to_string(p_list):
     for coeff in p_list:
         if degree == 0:
             terms.append(str(coeff))
-        elif degree == 1 and coeff > 0 or coeff < 0:
+        if degree == 1 and coeff > 0 or coeff < 0:
             if coeff == 1:
                 terms.append('x')    
             else:
@@ -34,6 +34,6 @@ def poly_to_string(p_list):
         
     final_string=' + '.join(terms) # The string ' + ' is used as "glue" between the elements in the string
     return final_string
-
+print(p)
 print(poly_to_string(p))
 print('hello')
