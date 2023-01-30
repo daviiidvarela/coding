@@ -44,10 +44,9 @@ def drop_zeroes(p_list):
             p_list.pop()
         else: 
             break
-    return(p_list)
-        
-        
-     
+    return p_list
+drop_zeroes(p0)
+drop_zeroes(q0)
 
 def eq_poly(p_list, q_list):
     if p_list == q_list:
@@ -55,7 +54,19 @@ def eq_poly(p_list, q_list):
     else:
         return False
 
+def eval_poly(p_list, x):
+	accelerator = 0
+	for c in reversed(p_list):
+		accelerator = accelerator * x + c
+	return accelerator
+
+def neg_poly(p_list):
+    [ -x for x in p_list]
+
 
 #print(poly_to_string(p0))
 #print(drop_zeroes([]))
-print(eq_poly(p, p0))
+
+#print(eq_poly(q0, []))
+#print(eval_poly(q,-2))
+print(neg_poly(p))
