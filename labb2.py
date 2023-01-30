@@ -34,7 +34,6 @@ def poly_to_string(p_list):
         degree += 1
         if (len(p_list)==0): 
 		        return 0 
-        
     final_string=' + '.join(terms) # The string ' + ' is used as "glue" between the elements in the string
     return final_string
 
