@@ -29,9 +29,6 @@ def poly_to_string(p_list):
             else:
                 term = str(coeff) + 'x^' + str(degree)
                 terms.append(term)
-        #if degree > 1 and coeff == 1:
-         #   term = 'x^' + str(degree)
-          #  terms.append(term)
         degree += 1
         
 
@@ -41,5 +38,24 @@ def poly_to_string(p_list):
     else:
         return final_string
 
+def drop_zeroes(p_list):
+    while len(p_list) != 0: 
+        if p_list[-1] == 0 :
+            p_list.pop()
+        else: 
+            break
+    return(p_list)
+        
+        
+     
 
-print(poly_to_string(q))
+def eq_poly(p_list, q_list):
+    if p_list == q_list:
+        return True
+    else:
+        return False
+
+
+#print(poly_to_string(p0))
+#print(drop_zeroes([]))
+print(eq_poly(p, p0))
