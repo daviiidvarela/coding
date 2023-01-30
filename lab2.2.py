@@ -61,7 +61,9 @@ def eval_poly(p_list, x):
 	return accelerator
 
 def neg_poly(p_list):
-    [ -x for x in p_list]
+    for x in range(len(p_list)):
+        p_list[x] = -p_list[x]
+        return p_list
 
 
 #print(poly_to_string(p0))
