@@ -1,5 +1,5 @@
 p = [2, 0, 1]
-q = [-2, 1, 0, 0, 2]
+q = [-2, 1, 0, 0, 1]
 p0 = [2,0,1,0]
 q0 = [0,0,0]
 
@@ -19,15 +19,27 @@ def poly_to_string(p_list):
                 terms.append('x')    
             else:
                 terms.append(str(coeff) + 'x')
-        if degree > 1 and coeff > 1:
-            term = str(coeff) + 'x^' + str(degree)
-            terms.append(term)
-        if degree > 1 and coeff == 1:
-            term = 'x^' + str(degree)
-            terms.append(term)
+        if degree > 1 and coeff != 0:
+            if coeff == 1:
+                term = 'x^' + str(degree)
+                terms.append(term)
+            elif coeff == -1:
+                term = '-x^' + str(degree)
+                terms.append(term)
+            else:
+                term = str(coeff) + 'x^' + str(degree)
+                terms.append(term)
+        #if degree > 1 and coeff == 1:
+         #   term = 'x^' + str(degree)
+          #  terms.append(term)
         degree += 1
+        
 
     final_string = ' + '.join(terms) # The string ' + ' is used as "glue" between the elements in the string
-    return final_string
+    if (len(p_list) == 0): 
+        return 0 
+    else:
+        return final_string
 
-#print(poly_to_string(q))
+
+print(poly_to_string(q))
