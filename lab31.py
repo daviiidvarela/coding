@@ -47,7 +47,7 @@ def print_library(lib):
     
     print(f"Total: {total_songs} songs, {int(total_length / 60)}:{total_length % 60:02d}") # prints total library song count and length
 
-# test for task 2.b
+# Test for task 2.b
 #lib = read_library('80s_library.txt')
 #print_library(lib)
 
@@ -71,7 +71,19 @@ def make_playlist(file, theme):
         raise ValueError('No songs match the theme')
     print(playlist)
 
+# Test for task 3.a
+#lib = read_library('80s_library.txt')
+#make_playlist(lib, "Rock")
+
+## B ##
+
+def write_playlist(playlist, filename):
+    with open(filename, 'w') as file:
+        for song in playlist:
+            artist, name, length = song
+            length = str(length // 60) + ':' + str(length % 60).zfill(2)
+            file.write(artist + ',' + name + ',' + length + '\n')
 
 lib = read_library('80s_library.txt')
-make_playlist(lib, "House")
-
+house = make_playlist(lib, "House")
+write_playlist(house, "house_music.txt")
