@@ -78,12 +78,10 @@ def make_playlist(file, theme):
 ## B ##
 
 def write_playlist(playlist, filename):
-    with open(filename, 'w') as file:
-        for song in playlist:
-            artist, name, length = song
-            length = str(length // 60) + ':' + str(length % 60).zfill(2)
-            file.write(artist + ',' + name + ',' + length + '\n')
+    file = open(filename, 'w')
+    for artist, song, length_total in playlist:
+        file.write(artist + ',' + song + ',' + length_total)
 
 lib = read_library('80s_library.txt')
 house = make_playlist(lib, "House")
-write_playlist(house, "house_music.txt")
+#write_playlist(house, "house_music.txt")
