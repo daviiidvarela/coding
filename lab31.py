@@ -66,6 +66,7 @@ def make_playlist(file, theme):
             length_minutes, length_seconds = map(int, length.split(":")) 
             length_total = length_minutes * 60 + length_seconds
             playlist.append((artist, song, length_total))
+    return playlist
             
     if not playlist:
         raise ValueError('No songs match the theme')
@@ -83,9 +84,9 @@ def write_playlist(playlist, filename):
             length_minutes = length // 60
             length_seconds = length % 60
             f.write(f"{artist},{song},{length_minutes}:{length_seconds:02}\n")
+    return f
 
-
-
-lib = read_library('80s_library.txt')
-house = make_playlist(lib, "House")
-write_playlist(house, "house_music.txt")
+# Test for task 3.b
+#lib = read_library('80s_library.txt')
+#house = make_playlist(lib, "House")
+#write_playlist(house, "house_music.txt")
