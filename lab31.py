@@ -69,7 +69,7 @@ def make_playlist(file, theme):
             
     if not playlist:
         raise ValueError('No songs match the theme')
-    print(playlist)
+    
 
 # Test for task 3.a
 #lib = read_library('80s_library.txt')
@@ -78,10 +78,14 @@ def make_playlist(file, theme):
 ## B ##
 
 def write_playlist(playlist, filename):
-    file = open(filename, 'w')
-    for artist, song, length_total in playlist:
-        file.write(artist + ',' + song + ',' + length_total)
+    with open(filename, 'w') as f:
+        for artist, song, length in playlist:
+            length_minutes = length // 60
+            length_seconds = length % 60
+            f.write(f"{artist},{song},{length_minutes}:{length_seconds:02}\n")
+
+
 
 lib = read_library('80s_library.txt')
 house = make_playlist(lib, "House")
-#write_playlist(house, "house_music.txt")
+write_playlist(house, "house_music.txt")
