@@ -38,7 +38,7 @@ def print_library(lib):
     for artist in sorted(songs.keys()): # this function finds the length of each artists discography and yields the total length for each artist
         artist_songs = songs[artist]
         artist_songs_count = len(artist_songs)
-        artist_length = sum(map(lambda x: int(x[1].split(":")[0]) * 60 + int(x[1].split(":")[1]), artist_songs))
+        artist_length = sum(map(lambda x: int(x[1].split(":")[0]) * 60 + int(x[1].split(":")[1]), artist_songs)) # the lambda creates a function for splitting the colon from the time and converting them to integers for every song
         
         print(f"{artist} ({artist_songs_count} songs, {int(artist_length / 60)}:{artist_length % 60:02d})") # prints the length of each artists' discography
         
@@ -93,15 +93,15 @@ def write_playlist(playlist, filename):
 ## --- TASK 4 ---##
 def main():
     library_filename = input("Enter a music library filename: ")
-    library = read_library(library_filename)
+    library = read_library(library_filename) # reads the entire library file
     print("Library:")
-    print_library(library)
+    print_library(library) # prints the entire library, separated by artist
     theme = input("Enter a playlist theme: ")
-    playlist = make_playlist(library, theme.casefold())
+    playlist = make_playlist(library, theme.casefold()) # creates playlist based on user inputed theme
     print("Playlist:")
     print(playlist)
     playlist_filename = input("Enter a filename to save the playlist: ")
-    write_playlist(playlist, playlist_filename)
+    write_playlist(playlist, playlist_filename) # writes the new playlist into a file
 
 # Test for task 4
 #main()
