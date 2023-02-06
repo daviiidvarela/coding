@@ -67,7 +67,6 @@ def make_playlist(file, theme):
             length_total = length_minutes * 60 + length_seconds
             playlist.append((artist, song, length_total))
     return playlist
-            
     if not playlist:
         raise ValueError('No songs match the theme')
     
@@ -90,3 +89,18 @@ def write_playlist(playlist, filename):
 #lib = read_library('80s_library.txt')
 #house = make_playlist(lib, "House")
 #write_playlist(house, "house_music.txt")
+
+## --- TASK 4 ---##
+def main():
+    library_filename = input("Enter a music library filename: ")
+    library = read_library(library_filename)
+    print("Library:")
+    print_library(library)
+    theme = input("Enter a playlist theme: ")
+    playlist = make_playlist(library, theme.casefold())
+    print("Playlist:")
+    print(playlist)
+    playlist_filename = input("Enter a filename to save the playlist: ")
+    write_playlist(playlist, playlist_filename)
+
+main()
