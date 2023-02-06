@@ -54,18 +54,18 @@ def print_library(lib):
 ## --- TASK 3 ---##
 ## A ##
 def make_playlist(file, theme):
-    library = {}
+    library = {} 
     with open('80s_library.txt', 'r') as file:
         for line in file:
-            artist, song, length = line.strip().split(',')
+            artist, song, length = line.strip().split(',') # splits all songs into their respective counterparts
             library[song] = (artist, length)
     playlist = []
     for song in library:
         if theme in song:
             artist, length = library[song]
-            length_minutes, length_seconds = map(int, length.split(":")) 
+            length_minutes, length_seconds = map(int, length.split(":")) # map maps the outcome of the split() function as integers
             length_total = length_minutes * 60 + length_seconds
-            playlist.append((artist, song, length_total))
+            playlist.append((artist, song, length_total)) # then we can add each song that fits the theme into the playlist
     return playlist
     if not playlist:
         raise ValueError('No songs match the theme')
@@ -78,11 +78,11 @@ def make_playlist(file, theme):
 ## B ##
 
 def write_playlist(playlist, filename):
-    with open(filename, 'w') as f:
-        for artist, song, length in playlist:
+    with open(filename, 'w') as f: # opens a new file with the user inputed filename
+        for artist, song, length in playlist: # converts the length in seconds back to mm:ss and then write all playlist songs into the new file
             length_minutes = length // 60
             length_seconds = length % 60
-            f.write(f"{artist},{song},{length_minutes}:{length_seconds:02}\n")
+            f.write(f"{artist},{song},{length_minutes}:{length_seconds:02d}\n")
     return f
 
 # Test for task 3.b
@@ -103,4 +103,5 @@ def main():
     playlist_filename = input("Enter a filename to save the playlist: ")
     write_playlist(playlist, playlist_filename)
 
-main()
+# Test for task 4
+#main()
