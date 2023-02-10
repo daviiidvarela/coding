@@ -17,20 +17,26 @@ def main():
 
     data = dict()               # Or data = {}
     with open(filename, 'r') as h:
+        '''
+        Opens the specified file and goes line by line to add entries in the new dictionary called 'data'
+        '''
         for line in h:
-            four_vals = line.split(',')
-            batch = four_vals[0]
+            four_values = line.split(',') # Takes all the commas away from the .csv file and leaves only the raw data
+            batch = four_values[0]
             if not batch in data:
                 data[batch] = []
-            data[batch] += [(float(four_vals[1]), float(four_vals[2]), float(four_vals[3]))] # Collect data from an experiment
+            data[batch] += [(float(four_values[1]), float(four_values[2]), float(four_values[3]))] # Collect data from an experiment
 
     print("Batch\t Average")
     for batch, sample in data.items(): 
         n = 0
         x_sum = 0
-        for (x, y, val) in sample:
+        for (x, y, value) in sample:
+            '''
+            This is the part of the function in charge of the calculations of the average
+            '''
             if x**2 + y**2 <= 1:
-                x_sum += val
+                x_sum += value
                 n += 1
             average = x_sum/n
         print(batch, "\t", average)
