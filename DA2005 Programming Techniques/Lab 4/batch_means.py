@@ -58,19 +58,18 @@ def main():
         average = x_sum/n
         print(batch, "\t", average)
 
-        import matplotlib.pyplot as plt
+        import matplotlib.pyplot as plt # Imports matplotlib to plot the graph
 
         def plot_data(data, filename):
             for batch, sample in data.items():
-                x = [x for (x, y, value) in sample if x**2 + y**2 <= 1]
-                y = [y for (x, y, value) in sample if x**2 + y**2 <= 1]
+                x = [x for (x, y, value) in sample if x**2 + y**2 <= 1] # The x value of each measurement
+                y = [y for (x, y, value) in sample if x**2 + y**2 <= 1] # The y value of each measurement
                 plt.scatter(x, y)
-            plt.gca().set_aspect('equal', adjustable='box')
-            plt.title("Unit Circle Plot")
-            plt.xlabel("X")
+            plt.title("Unit Circle Plot") # Title
+            plt.xlabel("X") # X and Y labels respectively
             plt.ylabel("Y")
-            plt.savefig(filename)
-            plt.show()
+            plt.savefig(filename) # Saves the data into a chosen filename
+            plt.show() # Shows the graph
 
 
 
