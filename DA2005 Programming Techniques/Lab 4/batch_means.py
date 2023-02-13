@@ -6,8 +6,6 @@
 #
 # Pretend this is taken from two (or more) different experiments:
 # batch 1 and batch 2.
-
-import matplotlib.pyplot as plt
             
 def main():
     '''
@@ -59,12 +57,29 @@ def main():
             continue # Then the program continues without the unusable data
         average = x_sum/n
         print(batch, "\t", average)
-            
+
+        import matplotlib.pyplot as plt
+
+        def plot_data(data, filename):
+            for batch, sample in data.items():
+                x = [x for (x, y, value) in sample if x**2 + y**2 <= 1]
+                y = [y for (x, y, value) in sample if x**2 + y**2 <= 1]
+                plt.scatter(x, y)
+            plt.gca().set_aspect('equal', adjustable='box')
+            plt.title("Unit Circle Plot")
+            plt.xlabel("X")
+            plt.ylabel("Y")
+            plt.savefig(filename)
+            plt.show()
+
+
+
         
 
 # Start the main program: this is idiomatic python
 if __name__ == '__main__':
     main()
+    plot_data(data, 'sample4pdf')
 
 # The idea with this idiom is that if this code is loaded as a module,
 # then the __name__ variable (internal to Python) is not __main__ and
