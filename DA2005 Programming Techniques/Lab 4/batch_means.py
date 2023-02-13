@@ -21,11 +21,17 @@ def main():
         Opens the specified file and goes line by line to add entries in the new dictionary called 'data'
         '''
         for line in h:
-            four_values = line.split(',') # Takes all the commas away from the .csv file and leaves only the raw data
-            batch = four_values[0]
-            if not batch in data:
-                data[batch] = []
-            data[batch] += [(float(four_values[1]), float(four_values[2]), float(four_values[3]))] # Collect data from an experiment
+            try:
+                four_values = line.split(',') # Takes all the commas away from the .csv file and leaves only the raw data
+                if len(four_values) != 4:
+                    raise ValueError("Line does not contain 4 values")
+                batch = four_values[0]
+                if not batch in data:
+                    data[batch] = []
+                data[batch] += [(float(four_values[1]), float(four_values[2]), float(four_values[3]))] # Collect data from an experiment
+            except ValueError as e:
+                print("Warning:", e)
+                continue
 
     print("Batch\t Average")
     for batch, sample in data.items(): 
@@ -38,9 +44,13 @@ def main():
             if x**2 + y**2 <= 1:
                 x_sum += value
                 n += 1
-            average = x_sum/n
+        if n == 0: 
+            print(f"Warning: No valid data for batch {batch}")
+            continue
+        average = x_sum/n
         print(batch, "\t", average)
 
+        
         
 
 # Start the main program: this is idiomatic python
