@@ -7,6 +7,7 @@
 # Pretend this is taken from two (or more) different experiments:
 # batch 1 and batch 2.
 
+import matplotlib.pyplot as plt
             
 def main():
     '''
@@ -31,7 +32,6 @@ def main():
                         if not batch in data:
                             data[batch] = []
                         data[batch] += [(float(four_values[1]), float(four_values[2]), float(four_values[3]))] # Collect data from an experiment
-                        
                     except ValueError as e:
                         print("Warning:", e)
                         continue
@@ -43,7 +43,8 @@ def main():
         break
  
     print("Batch\t Average")
-    for batch, sample in data.items(): 
+    sorted_data = sorted(data.items(), key=lambda x:x[0])
+    for batch, sample in sorted_data: 
         n = 0
         x_sum = 0
         for (x, y, value) in sample:
