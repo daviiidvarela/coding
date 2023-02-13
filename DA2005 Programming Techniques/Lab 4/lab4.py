@@ -21,15 +21,18 @@ def main():
                         if not batch in data:
                             data[batch] = []
                         data[batch] += [(float(four_values[1]), float(four_values[2]), float(four_values[3]))] # Collect data from an experiment
+                        
                     except ValueError as e:
                         print("Warning:", e)
                         continue
-                    print("Batch\t Average")
-        except FileNotFoundError:
-            print("File not found, please input another file name")
+                    
+        except FileNotFoundError: # When FileNotFoundError arrises, then the program asks the user to put in another file name
+            print("File not found, please input another file name") 
             filename = input('Which csv file should be analyzed? ')
-
-        
+            continue
+        break
+ 
+    print("Batch\t Average")
     for batch, sample in data.items(): 
         n = 0
         x_sum = 0
@@ -40,9 +43,9 @@ def main():
             if x**2 + y**2 <= 1:
                 x_sum += value
                 n += 1
-        if n == 0:
-            print(f"Warning: No valid data for batch {batch}")
-            continue
+        if n == 0: # This if function prints that there is not data from a given batch
+            print(f"Warning: No valid data for batch {batch}") 
+            continue # Then the program continues without the unusable data
         average = x_sum/n
         print(batch, "\t", average)
             
