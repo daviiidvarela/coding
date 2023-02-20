@@ -1,20 +1,58 @@
 class DnaSeq:
     def __init__(self, accession, seq):
-        pass
+        if not accession or not seq:
+            raise ValueError("Accession and sequence strings cannot be empty.")
+        self.accession = accession
+        self.seq = seq
 
     def __len__(self):
-        pass
+        return len(self.seq)
 
     def __str__(self):
-        pass
+        return f"<DnaSeq accession='{self.accession}'>"
 
 
-def read_dna(  ):
-    pass
+def read_dna(filename):
+    sequences = []
+    with open(filename, 'r') as f:
+        accession = None
+        sequence = ''
+        for line in f:
+            line = line.strip()
+            if line.startswith('>'):
+                if accession is not None:
+                    sequences.append(DnaSeq(accession, sequence))
+                    sequence = ''
+                accession = line[1:]
+            elif line:
+                sequence += line
+        if accession is not None:
+            sequences.append(DnaSeq(accession, sequence))
+    return sequences
 
 
-def check_exact_overlap(  ):
-    pass
+def check_exact_overlap(seq1, seq2, min_length=10):
+    """
+    Detects overlaps between two DNA sequences.
+
+    Parameters:
+    seq1 (DnaSeq): the first DNA sequence to compare
+    seq2 (DnaSeq): the second DNA sequence to compare
+    min_length (int): the minimum length of an overlap to consider (default: 10)
+
+    Returns:
+    int: the length of the longest overlap detected, or 0 if no overlap is detected
+    """
+    seq1_length = len(seq1)
+    seq2_length = len(seq2)
+
+    max_overlap_length = 0
+
+    for i in range(min_length, min(seq1_length, seq2_length) + 1):
+        if seq1.suffix(i) == seq2.prefix(i):
+            max_overlap_length = i
+
+    return max_overlap_length
 
 
 def overlaps(  ):
@@ -111,4 +149,6 @@ def test_all():
     print('Yay, all good')
 
 # Uncomment this to test everything:
-# test_all()
+#test_all()
+#test_class_DnaSeq()
+test_reading()
