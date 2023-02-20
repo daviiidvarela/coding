@@ -1,7 +1,7 @@
 class DnaSeq:
     def __init__(self, accession, seq):
         if not accession or not seq:
-            raise ValueError("Accession and sequence strings cannot be empty.")
+            raise ValueError("Accession and sequence strings cannot be empty")
         self.accession = accession
         self.seq = seq
     
@@ -39,7 +39,7 @@ def read_dna(filename):
 
 def check_exact_overlap(seq1, seq2, min_length=10):
     """
-    Detects overlaps between two DNA sequences.
+    Detects overlaps between two DNA sequences
 
     Parameters:
     seq1 (DnaSeq): the first DNA sequence to compare
@@ -63,15 +63,15 @@ def check_exact_overlap(seq1, seq2, min_length=10):
 
 def overlaps(seq_list, overlap_func=check_exact_overlap, min_len=10):
     """
-    Finds all detectable overlaps among pairs of sequences in the input list using the given overlap detection function.
+    Finds all detectable overlaps among pairs of sequences in the input list using the given overlap detection function
 
     Parameters:
-    seq_list (list): A list of DnaSeq objects.
-    overlap_func (function): A function that takes two DnaSeq objects and a minimum length and returns the length of the longest overlap between them.
-    min_len (int): The minimum length of an overlap to be considered.
+    seq_list (list): A list of DnaSeq objects
+    overlap_func (function): A function that takes two DnaSeq objects and a minimum length and returns the length of the longest overlap between them
+    min_len (int): The minimum length of an overlap to be considered
 
     Returns:
-    dict: A dictionary of dictionaries containing the lengths of overlaps between sequences. If d is the result of a call to overlaps, and the sequences with accessions s1 and s2 overlaps with length 10, then d['s1']['s2'] == 10 should be true.
+    dict: A dictionary of dictionaries containing the lengths of overlaps between sequences. If d is the result of a call to overlaps, and the sequences with accessions s1 and s2 overlaps with length 10, then d['s1']['s2'] == 10 should be true
 
     """
     overlap_lengths = {}
