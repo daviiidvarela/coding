@@ -155,7 +155,7 @@ def test_overlap():
    assert check_exact_overlap(s1, s2, 2) == 0
    assert check_exact_overlap(s2, s1, 2) == 2
    assert check_exact_overlap(s2, s3, 2) == 2
-   assert check_exact_overlap(s4, s5, 1) == 0, 'Do not allow "internal" substrings to overlap. s4 and s5 does not have an overlap.'
+   assert check_exact_overlap(s4, s5, 1) == 0
    assert check_exact_overlap(s4, s5, 2) == 0
    assert check_exact_overlap(s4, s5, 3) == 0
    assert check_exact_overlap(s5, s2, 1) == 4
