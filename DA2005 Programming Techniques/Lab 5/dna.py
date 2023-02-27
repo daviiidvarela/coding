@@ -185,3 +185,5 @@ def test_all():
 test_class_DnaSeq()
 test_reading()
 test_overlap()
+
+# create function that continues to ask a user a question until the user inputs q?
