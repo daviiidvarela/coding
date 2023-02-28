@@ -1,7 +1,7 @@
 
 def station_check():
     stations = input("Enter name of stations file: ")
-    data = dict()
+    data = []
     stops = set()
     while True:
         try:
@@ -11,20 +11,22 @@ def station_check():
                 '''
                 for line in h:
                     try:
-                        location, delay_prob = line.strip().split(',')
+                        location, delay_prob = line.split(',')
                         delay_prob = float(delay_prob)
                         if isinstance(location, int):
                             raise TypeError("There is row that contains an integer in the location column, the location column can only contain letters or words.")
                         if 0 <= delay_prob <= 1:
                             if location not in stops:
                                 stops.add(location)
-                        if not location in data:
-                           data[location] = []
-                        data[location]+= [(float(delay_prob))]
+                                data[location] = []
+                                data[location].append(delay_prob)
+                        #if not location in data:
+                        #   data[location] = []
+                        #data[location]+= [(float(delay_prob))]
                     except TypeError as e:
                         print("Warning:", e)
                         continue
-            return stops
+            return data
             
                     
         except FileNotFoundError: # When FileNotFoundError arrises, then the program asks the user to put in another file name
