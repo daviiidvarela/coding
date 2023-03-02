@@ -62,20 +62,21 @@ class train_sim:
         while True:
             trains = input("Enter how many trains to simulate: ")
             try:
-                integer_input = int(trains)
+                self.integer_input = int(trains)
             except ValueError:
                 print("Invalid input. Please enter an integer.")
-            return integer_input
+            return self.integer_input
     
     def create_trains(self):
         import random
-        trains = self.trains_check()
-        stations = self.station_check()
+        trains = self.integer_input
+        stations = self.data
+        train_dict = {}
         for i in range(1, trains+1):
-            stations = random.choice(list(stations.keys()))
-            var_name = "train" + str(i)
-            exec(var_name + " = '" + stations + "'")
-        print(locals())
+            station = random.choice(list(stations.keys()))
+            train_dict[f"train{i}"] = station
+        print(train_dict)
+
 
 def traincode():
     train_functions = train_sim()
