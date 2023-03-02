@@ -89,10 +89,10 @@ def train_code():
     station_check()
     connections_check()
     trains_check()
+    print('all good')
 
 #create_trains()
-let = station_check()
-print(let)
-#train_code()
+
+train_code()
 
 

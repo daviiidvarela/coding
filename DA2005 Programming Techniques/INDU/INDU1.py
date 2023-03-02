@@ -24,7 +24,7 @@ def station_check():
                     except TypeError as e:
                         print("Warning:", e)
                         continue
-            return stops
+            return data
             
                     
         except FileNotFoundError: # When FileNotFoundError arrises, then the program asks the user to put in another file name
@@ -79,7 +79,10 @@ def create_trains():
     return locals()
 
 
-
+#class traincode:
+#    def __init__(self, width, height):
+#        self.width = width
+#        self.height = height
 
 
 
@@ -89,6 +92,6 @@ def train_code():
     trains_check()
     create_trains()
 
-train_code()
-
+#train_code()
+print1 = station_check()
 
