@@ -1,8 +1,11 @@
-class traincode:
-    def station_check():
+class TrainChecker:
+    def __init__(self):
+        self.data = {}
+        self.stops = set()
+        self.connections = ""
+
+    def station_check(self):
         stations = input("Enter name of stations file: ")
-        data = dict()
-        stops = set()
         while True:
             try:
                 with open(stations, 'r') as h:
@@ -16,28 +19,27 @@ class traincode:
                             if isinstance(location, int):
                                 raise TypeError("There is row that contains an integer in the location column, the location column can only contain letters or words.")
                             if 0 <= delay_prob <= 1:
-                                if location not in stops:
-                                    stops.add(location)
-                            if not location in data:
-                                data[location] = []
-                            data[location]+= [(float(delay_prob))]
+                                if location not in self.stops:
+                                    self.stops.add(location)
+                                if not location in self.data:
+                                   self.data[location] = []
+                                self.data[location]+= [(float(delay_prob))]
                         except TypeError as e:
                             print("Warning:", e)
                             continue
-                return data
-            
-                    
+                return self.data
+
             except FileNotFoundError: # When FileNotFoundError arrises, then the program asks the user to put in another file name
                 print("File not found, please input another file name.") 
-                stations = input('Which csv file should be analyzed? ')
+                stations = input('Enter name of stations file: ')
                 continue
             break
 
-    def connections_check():
-        connections = input("Enter name of connections file: ")    
+    def connections_check(self):
+        self.connections = input("Enter name of connections file: ")    
         while True:
             try:
-                with open(connections, 'r') as h:
+                with open(self.connections, 'r') as h:
                     '''
                     Opens the specified file and goes line by line to add entries in the new dictionary called 'data'
                     '''
@@ -48,15 +50,15 @@ class traincode:
                                 raise TypeError("There is row that contains an integer in one of the columns, the connections columns can only contain letters or words.")
                         except TypeError as e:
                             print("Warning:", e)
-                        continue
-                    
+                            continue
+
             except FileNotFoundError: # When FileNotFoundError arrises, then the program asks the user to put in another file name
                 print("File not found, please input another file name.") 
-                connections = input('Which csv file should be analyzed? ')
+                self.connections = input('Enter name of connections file: ')
                 continue
             break
 
-    def trains_check():
+    def trains_check(self):
         while True:
             trains = input("Enter how many trains to simulate: ")
             try:
@@ -64,16 +66,11 @@ class traincode:
                 return integer_input
             except ValueError:
                 print("Invalid input. Please enter an integer.")
-            return integer_input
 
+def traincode():
+    train_checker = TrainChecker()
+    train_checker.station_check()
+    train_checker.connections_check()
+    train_checker.trains_check()
 
-    import random
-
-    def create_trains():
-        trains = trains_check()
-        stations = station_check()
-        for i in range(1, trains+1):
-            stations = random.choice(list(stations.keys()))
-            var_name = "train" + str(i)
-            exec(var_name + " = '" + stations + "'")
-        return locals()
+traincode()
