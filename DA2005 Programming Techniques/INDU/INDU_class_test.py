@@ -1,4 +1,4 @@
-class TrainChecker:
+class train_sim:
     def __init__(self):
         self.data = {}
         self.stops = set()
@@ -63,14 +63,26 @@ class TrainChecker:
             trains = input("Enter how many trains to simulate: ")
             try:
                 integer_input = int(trains)
-                return integer_input
             except ValueError:
                 print("Invalid input. Please enter an integer.")
+            return integer_input
+    
+    def create_trains(self):
+        import random
+        trains = self.trains_check()
+        stations = self.station_check()
+        for i in range(1, trains+1):
+            stations = random.choice(list(stations.keys()))
+            var_name = "train" + str(i)
+            exec(var_name + " = '" + stations + "'")
+        print(locals())
 
 def traincode():
-    train_checker = TrainChecker()
-    train_checker.station_check()
-    train_checker.connections_check()
-    train_checker.trains_check()
+    train_functions = train_sim()
+    train_functions.station_check()
+    train_functions.connections_check()
+    train_functions.trains_check()
+    train_functions.create_trains()
+
 
 traincode()

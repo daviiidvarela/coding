@@ -67,9 +67,10 @@ def trains_check():
         return integer_input
 
 
-import random
+
 
 def create_trains():
+    import random
     trains = trains_check()
     stations = station_check()
     for i in range(1, trains+1):
