@@ -9,6 +9,7 @@ class train_sim:
         while True:
             try:
                 with open(stations, 'r') as h:
+                    data = {}
                     '''
                     Opens the specified file and goes line by line to add entries in the new dictionary called 'data'
                     '''
@@ -75,7 +76,6 @@ class train_sim:
         for i in range(1, trains+1):
             station = random.choice(list(stations.keys()))
             train_dict[f"train{i}"] = station
-        print(train_dict)
 
 
 def traincode():
