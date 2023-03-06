@@ -3,12 +3,14 @@ class train_sim:
         self.data = {}
         self.stops = set()
         self.connections = ""
+        self.current_time = 0
 
     def station_check(self):
         stations = input("Enter name of stations file: ")
         while True:
             try:
                 with open(stations, 'r') as h:
+                    data = {}
                     '''
                     Opens the specified file and goes line by line to add entries in the new dictionary called 'data'
                     '''
@@ -45,12 +47,13 @@ class train_sim:
                     '''
                     for line in h:
                         try:
-                            start_connection, end_connection, line_color, direction = line.strip().split(',') 
-                            if isinstance(start_connection or end_connection or line_color or direction, int):
+                            self.start_connection, self.end_connection, self.line_color, self.direction = line.strip().split(',') 
+                            if isinstance(self.start_connection or self.end_connection or self.line_color or self.direction, int):
                                 raise TypeError("There is row that contains an integer in one of the columns, the connections columns can only contain letters or words.")
                         except TypeError as e:
                             print("Warning:", e)
                             continue
+                        return self.start_connection, self.end_connection, self.line_color, self.direction
 
             except FileNotFoundError: # When FileNotFoundError arrises, then the program asks the user to put in another file name
                 print("File not found, please input another file name.") 
@@ -62,20 +65,62 @@ class train_sim:
         while True:
             trains = input("Enter how many trains to simulate: ")
             try:
-                integer_input = int(trains)
+                self.integer_input = int(trains)
             except ValueError:
                 print("Invalid input. Please enter an integer.")
-            return integer_input
+            return self.integer_input
     
     def create_trains(self):
         import random
-        trains = self.trains_check()
-        stations = self.station_check()
+        trains = self.integer_input
+        stations = self.data
+
+        self.train_dict = {}
+        directions = {'N', 'S'}
         for i in range(1, trains+1):
-            stations = random.choice(list(stations.keys()))
-            var_name = "train" + str(i)
-            exec(var_name + " = '" + stations + "'")
-        print(locals())
+            station = random.choice(list(stations.keys()))
+            self.train_dict[f"train{i}"] = station
+            
+        return self.train_dict
+
+    # def user_decision(self):
+    #     user_decision = print('Continue simulation [1], train info [2], exit [q].')
+    #     if user_decision == 1:
+
+
+            
+    # def move_train(self, current_location, destination):
+    #     import random
+    #     """
+    #     Moves the train from the current location to the specified destination.
+    #     Returns True if the move was successful, False otherwise.
+    #     """
+    #     # Check if the specified destination is a valid connection from the current location
+    #     if destination not in self.data[current_location]:
+    #         print(f"Error: {destination} is not a valid destination from {current_location}.")
+    #         return False
+        
+    #     # Move the train to the new location
+    #     self.train_location = destination
+        
+    #     # Update the train's delay based on the delay probability of the new location
+    #     delay_prob = self.data[destination]
+    #     if random.random() < delay_prob:
+    #         self.train_delayed = True
+    #         print(f"Train is delayed at {destination}!")
+    #     else:
+    #         self.train_delayed = False
+        
+    #     # Print a message indicating that the train has moved
+    #     #print(f"Train moved from {current_location} to {destination}.")
+    #     return True
+    
+    # def advance_time(self):
+    #     # update the current time by one unit
+    #     self.current_time += 1
+    #     # or you might move trains along their routes based on the current time and the schedule
+
+
 
 def traincode():
     train_functions = train_sim()
