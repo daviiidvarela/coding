@@ -77,23 +77,30 @@ class train_sim:
         stations = self.data
 
         self.train_dict = {}
-        directions = {'N', 'S'}
         for i in range(1, trains+1):
             station = random.choice(list(stations.keys()))
-            self.train_dict[f"train{i}"] = station
+            line_color = random.choice(self.line_color)
+            direction = random.choice(self.direction)
+        
+        # Add train to the dictionary
+            self.train_dict[f"Train{i}"] = {'station': station, 'line_color': line_color, 'direction': direction}
             
-        return self.train_dict
+
+            #self.train_dict[f"Train{i}"] = station
+            
+        print(self.train_dict)
 
     def user_decision(self):
-        user_decision = input('Continue simulation [1], train info [2], exit [q]: ')
         try:
             while True:
+                user_decision = input('Continue simulation [1], train info [2], exit [q]: ')
                 if user_decision == 1:
                     self.move_trains()
                 elif user_decision == 2:
-                    self.move_trains()
+                    self.train_info()
                 elif user_decision == 'q':
-                    False
+                    print("Thank you and goodbye!")
+                    break
         except TypeError as e:
             print("Warning:", e)
         
@@ -118,18 +125,15 @@ class train_sim:
                     delay_prob = self.data[next_location]
                     if random.random() < delay_prob:
                         next_location = current_location
-                train = (next_location, current_direction)
+                self.train = (next_location, current_direction)
 
     def train_info(self):
-        which_train = input("Which train [1 - " + self.integer_input + "]: ")
-        
-    
-    def advance_time(self):
-        # update the current time by one unit
-        self.current_time += 1
-        # or you might move trains along their routes based on the current time and the schedule
-
-
+        import random
+        train_num = int(input("Which train [1 - {}]: ".format(len(self.train_dict))))
+        train = self.train_dict[train_num - 1]
+        print("{} on {} line is at station {} heading in {} direction{}.".format(
+            train[0], train['line'], train['station'], train['direction'],
+            " (DELAY)" if random.random() < 0.2 else ""))
 
 def traincode():
     train_functions = train_sim()
@@ -139,6 +143,7 @@ def traincode():
     train_functions.create_trains()
     train_functions.user_decision()
     train_functions.move_trains()
+    #train_functions.train_info()
 
 
 traincode()
