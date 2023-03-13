@@ -85,44 +85,44 @@ class train_sim:
         return self.train_dict
 
     def user_decision(self):
-        user_decision = print('Continue simulation [1], train info [2], exit [q].')
+        user_decision = input('Continue simulation [1], train info [2], exit [q]: ')
         try:
-            if user_decision == 1:
-                self.move_train()
-            elif user_decision == 2:
-                divmo
-            elif user_decision == 'q':
-                pass
+            while True:
+                if user_decision == 1:
+                    self.move_trains()
+                elif user_decision == 2:
+                    self.move_trains()
+                elif user_decision == 'q':
+                    False
         except TypeError as e:
             print("Warning:", e)
         
 
             
-    def move_train(self, current_location, destination):
+    def move_trains(self):
         import random
-        """
-        Moves the train from the current location to the specified destination.
-        Returns True if the move was successful, False otherwise.
-        """
-        # Check if the specified destination is a valid connection from the current location
-        if destination not in self.data[current_location]:
-            print(f"Error: {destination} is not a valid destination from {current_location}.")
-            return False
+        for train in self.trains:
+            current_location, current_direction = train
+            possible_destinations = []
+            for neighbor, line, direction in self.connections[current_location]:
+                if current_direction == direction:
+                    possible_destinations.append((neighbor, line, direction))
+            if len(possible_destinations) == 0:
+                current_direction = "N" if current_direction == "S" else "S"
+                train = (current_location, current_direction)
+            else:
+                next_location, line, direction = random.choice(possible_destinations)
+                if next_location in self.final_stops:
+                    current_direction = "N" if current_direction == "S" else "S"
+                else:
+                    delay_prob = self.data[next_location]
+                    if random.random() < delay_prob:
+                        next_location = current_location
+                train = (next_location, current_direction)
+
+    def train_info(self):
+        which_train = input("Which train [1 - " + self.integer_input + "]: ")
         
-        # Move the train to the new location
-        self.train_location = destination
-        
-        # Update the train's delay based on the delay probability of the new location
-        delay_prob = self.data[destination]
-        if random.random() < delay_prob:
-            self.train_delayed = True
-            print(f"Train is delayed at {destination}!")
-        else:
-            self.train_delayed = False
-        
-        # Print a message indicating that the train has moved
-        #print(f"Train moved from {current_location} to {destination}.")
-        return True
     
     def advance_time(self):
         # update the current time by one unit
@@ -137,6 +137,8 @@ def traincode():
     train_functions.connections_check()
     train_functions.trains_check()
     train_functions.create_trains()
+    train_functions.user_decision()
+    train_functions.move_trains()
 
 
 traincode()
