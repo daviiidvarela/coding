@@ -32,7 +32,7 @@ class train_sim:
                             continue
                 return self.data
 
-            except FileNotFoundError: # When FileNotFoundError arrises, then the program asks the user to put in another file name
+            except FileNotFoundError: # When FileNotFoundError arises, then the program asks the user to put in another file name
                 print("File not found, please input another file name.") 
                 stations = input('Enter name of stations file: ')
                 continue
@@ -48,7 +48,10 @@ class train_sim:
                     '''
                     for line in h:
                         try:
-                            self.start_connection, self.end_connection, self.line_color, self.direction = line.strip().split(',') 
+                            self.start_connection, self.end_connection, self.line_color, self.direction = line.strip().split(',')
+                            self.line_color = list(set(self.line_color))
+                            print(self.line_color)
+
                             if isinstance(self.start_connection or self.end_connection or self.line_color or self.direction, int):
                                 raise TypeError("There is row that contains an integer in one of the columns, the connections columns can only contain letters or words.")
                         except TypeError as e:
@@ -79,7 +82,7 @@ class train_sim:
         self.train_dict = {}
         for i in range(1, trains+1):
             station = random.choice(list(stations.keys()))
-            line_color = random.choice(self.line_color)
+            line_color = random.choice(list(self.line_color))
             direction = random.choice(self.direction)
         
         # Add train to the dictionary
